@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "pyro-demo"
+version = "0.1.0"
+description = ""
+authors = ["Antony Redman <RumataYounger@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+docker = "^7.0.0"
+fastapi = "^0.109.2"
+sqlalchemy = "^2.0.25"
+uvicorn = "^0.27.0.post1"
+alembic = "^1.13.1"
+pyro-compiler = "^0.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-snapshot = "^0.9.0"
+flake8 = "^7.0.0"
+ruff = "^0.2.1"
+mypy = "^1.8.0"
+pre-commit = "^3.6.0"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
