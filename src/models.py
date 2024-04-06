@@ -1,12 +1,12 @@
 from datetime import timedelta
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 import sqlalchemy
-from sqlalchemy import String, ForeignKey, LargeBinary
-from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey, LargeBinary, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, relationship
 
-from src.types import pk, code_id
+from src.types import code_id, pk
 
 
 class Base(DeclarativeBase):
@@ -14,6 +14,7 @@ class Base(DeclarativeBase):
         Enum: sqlalchemy.Enum(Enum, native_enum=False),
     }
 
+    @classmethod
     @declared_attr.directive
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
@@ -27,7 +28,7 @@ class Session(Base):
 
     pk: Mapped[pk]
     session_key: Mapped[str] = mapped_column(String(48))
-    code_runs: Mapped[List["CodeRun"]] = relationship(back_populates="session")
+    code_runs: Mapped[list["CodeRun"]] = relationship(back_populates="session")
 
 
 class CodeRun(Base):
@@ -42,7 +43,9 @@ class CodeRun(Base):
     session_id: Mapped[int] = mapped_column(ForeignKey("session.pk"))
     session: Mapped[Session] = relationship(back_populates="code_runs")
     run_result: Mapped[Optional["RunResult"]] = relationship(back_populates="code_run")
-    run_missmatch_error: Mapped[Optional["RunMissmatchError"]] = relationship(back_populates="code_run")
+    run_missmatch_error: Mapped[Optional["RunMissmatchError"]] = relationship(
+        back_populates="code_run"
+    )
     build_error: Mapped[Optional["BuildError"]] = relationship(back_populates="code_run")
 
     code: Mapped[str]

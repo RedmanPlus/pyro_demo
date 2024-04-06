@@ -26,6 +26,7 @@ mypy = "^1.8.0"
 pre-commit = "^3.6.0"
 isort = "^5.13.2"
 autoflake = "^2.3.1"
+black = "^24.3.0"
 
 [tool.autoflake]
 remove-all-unused-imports = true
@@ -47,6 +48,7 @@ exclude = '''
   |\.venv
   |\.pyc
   |\.pyi
+  |data
   |_build
   |buck-out
   |build
@@ -66,14 +68,13 @@ skip = "__init__.py"
 [tool.ruff]
 line-length = 120
 target-version = "py39"
-ignore = ["E501"]
+lint.ignore = ["E501"]
 fix = true
-select = [
+lint.select = [
     "F",   # pyflakes
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
     "UP",  # pyupgrade
-    "C90", # mccabe
     "N",   # pep8-naming
     "C4",  # flake8-comprehensions
     "B",   # flake8-bugbear
@@ -117,10 +118,6 @@ markers = [
 python_files = "test_*.py"
 test_paths = "test"
 junit_duration_report = "total"
-
-[tool.ruff.mccabe]
-# Настройка максимальной сложности
-max-complexity = 100
 
 [tool.mypy]
 explicit_package_bases = true
