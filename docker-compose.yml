@@ -1,0 +1,13 @@
+version: "3.0"
+
+
+services:
+  db:
+    image: postgres:bullseye
+    container_name: db
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
