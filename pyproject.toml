@@ -26,6 +26,105 @@ mypy = "^1.8.0"
 pre-commit = "^3.6.0"
 isort = "^5.13.2"
 
+[tool.autoflake]
+remove-all-unused-imports = true
+ignore-init-module-imports = true
+expand-star-imports = true
+remove-duplicate-keys = true
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+exclude = '''
+(
+  \.eggs
+  |\.git
+  |\.hg
+  |\.mypy_cache
+  |\.nox
+  |\.tox
+  |\.venv
+  |\.pyc
+  |\.pyi
+  |_build
+  |buck-out
+  |build
+  |dist
+)
+'''
+
+[tool.isort]
+line_length = 100
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+multi_line_output = 3
+profile = "black"
+src_paths = "."
+lines_after_imports = 2
+skip = "__init__.py"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+ignore = ["E501"]
+fix = true
+select = [
+    "F",   # pyflakes
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "UP",  # pyupgrade
+    "C90", # mccabe
+    "N",   # pep8-naming
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "BLE", # flake8-blind-except
+    "T20", # flake8-print
+    "Q",   # flake8-quotes
+]
+exclude = [
+    "eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".tox",
+    ".venv",
+    ".pyc",
+    ".pyi",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "migrations",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "."
+]
+addopts = """
+--disable-warnings
+"""
+markers = [
+    "slow: slow test",
+    "tokenizer: tokenizer tests",
+    "parser: parser tests",
+    "int_rep: intermediate representation tests",
+    "gen: assembly generation",
+    "errors: error reporting framework tests",
+    "integration: integration of multiple components"
+]
+python_files = "test_*.py"
+test_paths = "test"
+junit_duration_report = "total"
+
+[tool.ruff.mccabe]
+# Настройка максимальной сложности
+max-complexity = 100
+
+[tool.mypy]
+explicit_package_bases = true
+
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
