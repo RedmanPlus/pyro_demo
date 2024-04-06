@@ -6,7 +6,7 @@ import sqlalchemy
 from sqlalchemy import ForeignKey, LargeBinary, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, relationship
 
-from src.types import code_id, pk
+from src.db.types import code_id, pk
 
 
 class Base(DeclarativeBase):
