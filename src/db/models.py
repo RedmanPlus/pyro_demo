@@ -51,10 +51,10 @@ class CodeRun(Base):
     code: Mapped[str]
     pyro_docker_id: Mapped[bytes] = mapped_column(LargeBinary(12))
     pyro_docker_debug_id: Mapped[bytes] = mapped_column(LargeBinary(12))
-    pyro_docker_status: Mapped[Enum]
+    pyro_docker_status: Mapped[str]
     interpret_docker_id: Mapped[bytes] = mapped_column(LargeBinary(12))
     interpret_docker_debug_id: Mapped[bytes] = mapped_column(LargeBinary(12))
-    interpret_docker_status: Mapped[Enum]
+    interpret_docker_status: Mapped[str]
 
 
 class RunResult(Base):
@@ -95,7 +95,7 @@ class RunMissmatchError(Base):
     code_id: Mapped[code_id]
     code: Mapped[CodeRun] = relationship(back_populates="run_missmatch_error")
     interpret_run_result: Mapped[str]
-    pyro_mapped_result: Mapped[str]
+    pyro_run_result: Mapped[str]
 
 
 class BuildError(Base):
